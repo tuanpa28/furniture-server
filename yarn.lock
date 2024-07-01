@@ -241,6 +241,13 @@
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-1.3.5.tgz#1ef302e01cf7d2b5a0fa526790c9123bf1d06690"
   integrity sha512-/pyBZWSLD2n0dcHE3hq8s8ZvcETHtEuF+3E7XVt0Ig2nvsVQXdghHVcEkIWjy9A0wKfTn97a/PSDYohKIlnP/w==
 
+"@types/mongoose@^5.11.97":
+  version "5.11.97"
+  resolved "https://registry.yarnpkg.com/@types/mongoose/-/mongoose-5.11.97.tgz#80b0357f3de6807eb597262f52e49c3e13ee14d8"
+  integrity sha512-cqwOVYT3qXyLiGw7ueU2kX9noE8DPGRY6z8eUxudhXY8NZ7DMKYAxyZkLSevGfhCX3dO/AoX5/SO9lAzfjon0Q==
+  dependencies:
+    mongoose "*"
+
 "@types/node@*", "@types/node@^20.14.9":
   version "20.14.9"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-20.14.9.tgz#12e8e765ab27f8c421a1820c99f5f313a933b420"
@@ -252,6 +259,11 @@
   version "6.9.15"
   resolved "https://registry.yarnpkg.com/@types/qs/-/qs-6.9.15.tgz#adde8a060ec9c305a82de1babc1056e73bd64dce"
   integrity sha512-uXHQKES6DQKKCLh441Xv/dwxOq1TVS3JPUMlEqoEglvlhR6Mxnlew/Xq/LRVHpLyk7iK3zODe1qYHIMltO7XGg==
+
+"@types/randomstring@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@types/randomstring/-/randomstring-1.3.0.tgz#2953e8de350c27c10eb1aa011fbca8d88c327d79"
+  integrity sha512-kCP61wludjY7oNUeFiMxfswHB3Wn/aC03Cu82oQsNTO6OCuhVN/rCbBs68Cq6Nkgjmp2Sh3Js6HearJPkk7KQA==
 
 "@types/range-parser@*":
   version "1.2.7"
@@ -1430,7 +1442,7 @@ mongodb@6.6.2:
     bson "^6.7.0"
     mongodb-connection-string-url "^3.0.0"
 
-mongoose@^8.4.4:
+mongoose@*, mongoose@^8.4.4:
   version "8.4.4"
   resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-8.4.4.tgz#2a70f47cc69f3b0ad756af6a97484d4fb1835fb3"
   integrity sha512-Nya808odIJoHP4JuJKbWA2eIaerXieu59kE8pQlvJpUBoSKWUyhLji0g1WMVaYXWmzPYXP2Jd6XdR4KJE8RELw==
@@ -1658,6 +1670,18 @@ queue-microtask@^1.2.2:
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
 
+randombytes@2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/randombytes/-/randombytes-2.0.3.tgz#674c99760901c3c4112771a31e521dc349cc09ec"
+  integrity sha512-lDVjxQQFoCG1jcrP06LNo2lbWp4QTShEXnhActFBwYuHprllQV6VUpwreApsYqCgD+N1mHoqJ/BI/4eV4R2GYg==
+
+randomstring@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/randomstring/-/randomstring-1.3.0.tgz#1bf9d730066899e70aee3285573f84708278683d"
+  integrity sha512-gY7aQ4i1BgwZ8I1Op4YseITAyiDiajeZOPQUbIq9TPGPhUm5FX59izIaOpmKbME1nmnEiABf28d9K2VSii6BBg==
+  dependencies:
+    randombytes "2.0.3"
+
 range-parser@~1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.1.tgz#3cf37023d199e1c24d1a55b84800c2f3e6468031"
@@ -1808,6 +1832,11 @@ slash@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-3.0.0.tgz#6539be870c165adbd5240220dbe361f1bc4d4634"
   integrity sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==
+
+slugify@^1.6.6:
+  version "1.6.6"
+  resolved "https://registry.yarnpkg.com/slugify/-/slugify-1.6.6.tgz#2d4ac0eacb47add6af9e04d3be79319cbcc7924b"
+  integrity sha512-h+z7HKHYXj6wJU+AnS/+IH8Uh9fdcX1Lrhg1/VMdf9PwoBQXFcXiAdsy2tSK0P6gKwJLXp02r90ahUCqHk9rrw==
 
 sparse-bitfield@^3.0.3:
   version "3.0.3"

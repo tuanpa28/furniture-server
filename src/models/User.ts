@@ -4,8 +4,8 @@ const UserSchema = new Schema(
   {
     username: {
       type: String,
-      min: 4,
-      max: 50,
+      min: 3,
+      max: 30,
       required: true,
       unique: true,
     },
@@ -19,9 +19,10 @@ const UserSchema = new Schema(
       min: 6,
       required: true,
     },
-    isAdmin: {
-      type: Boolean,
-      default: false,
+    role: {
+      type: String,
+      default: 'user',
+      enum: ['user', 'admin'],
     },
   },
   { timestamps: true, versionKey: false },

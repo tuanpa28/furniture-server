@@ -1,8 +1,9 @@
 import Joi from 'joi';
 
 export const userSchema = Joi.object({
-  username: Joi.string().required().min(4).messages({
+  username: Joi.string().required().min(3).max(30).messages({
     'string.min': 'username phải có ít nhất {#limit} ký tự!',
+    'string.max': 'username tối đa {#limit} ký tự!',
     'string.empty': 'username không được để trống!',
     'any.required': 'Trường username là bắt buộc!',
   }),
@@ -16,5 +17,5 @@ export const userSchema = Joi.object({
     'string.empty': 'password không được để trống!',
     'any.required': 'Trường password là bắt buộc!',
   }),
-  isAdmin: Joi.boolean(),
+  role: Joi.string(),
 });

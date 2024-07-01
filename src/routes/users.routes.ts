@@ -1,10 +1,10 @@
-import express, { Router } from 'express';
+import { Router } from 'express';
 import { usersController } from '~/controllers';
-import { verifyToken } from '~/middlewares';
+import { verifyToken, verifyAdmin } from '~/middlewares';
 
-const routerUser: Router = express.Router();
+const routerUser: Router = Router();
 
 // Find All
-routerUser.get('/', verifyToken, usersController.findList);
+routerUser.get('/', verifyToken, verifyAdmin, usersController.findList);
 
 export default routerUser;
