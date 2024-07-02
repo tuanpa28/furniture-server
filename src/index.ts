@@ -17,7 +17,7 @@ try {
   console.log('Error connect db !!!', error);
 }
 
-app.use(cors());
+app.use(cors({ origin: '*' }));
 app.use(express.json());
 
 // routes
