@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
-import { serverError, successfully } from '~/constants/httpStatus';
+import { badRequest, serverError, successfully } from '~/constants/httpStatus';
 import { userService } from '~/services';
+import { userSchema } from '~/validations/user.validation';
 
 export const findList = async (req: Request, res: Response) => {
   try {
@@ -20,9 +21,6 @@ export const findList = async (req: Request, res: Response) => {
     res.status(200).json(
       successfully(
         {
-          isError: false,
-          statusCode: 200,
-          message: 'Successful',
           data: users,
           currentPage: Number(page),
           totalPage: Math.ceil(count / Number(limit)),
@@ -36,17 +34,86 @@ export const findList = async (req: Request, res: Response) => {
   }
 };
 
-// export const findOne = async (req: Request, res: Response) => {
-//   try {
-//     const { id } = req.params;
-//     const user = await userService.findOne(id);
+export const findOne = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const user = await userService.findOne(id);
 
-//     if (!user) {
-//       return res.status(400).json(badRequest(400, 'Không có dữ liệu!'));
-//     }
+    if (!user) {
+      return res.status(400).json(badRequest(400, 'Không có dữ liệu!'));
+    }
 
-//     res.status(200).json(successfully(user, 'Lấy dữ liệu thành công!'));
-//   } catch (error) {
-//     res.status(500).json(serverError(error.message));
-//   }
-// };
+    res.status(200).json(successfully(user, 'Lấy dữ liệu thành công!'));
+  } catch (error: any) {
+    res.status(500).json(serverError(error?.message));
+  }
+};
+
+export const findOneByUserName = async (req: Request, res: Response) => {
+  try {
+    const { username } = req.params;
+    const pipeline = [
+      {
+        $match: {
+          username,
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          username: 1,
+          email: 1,
+          createdAt: 1,
+        },
+      },
+    ];
+
+    const user = await userService.findAggregate(pipeline);
+
+    if (!user) {
+      return res.status(400).json(badRequest(400, 'Không có dữ liệu!'));
+    }
+
+    res.status(200).json(successfully(user, 'Lấy dữ liệu thành công!'));
+  } catch (error: any) {
+    res.status(500).json(serverError(error?.message));
+  }
+};
+
+export const update = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const { error } = userSchema.validate(req.body);
+
+    if (error) {
+      return res.status(400).json(badRequest(400, error.details[0].message));
+    }
+
+    const user = await userService.update(id, req.body);
+
+    if (!user) {
+      return res.status(400).json(badRequest(400, 'Sửa dữ liệu thất bại!'));
+    }
+
+    res.status(200).json(successfully(user, 'Sửa dữ liệu thành công!'));
+  } catch (error: any) {
+    res.status(500).json(serverError(error?.message));
+  }
+};
+
+export const remove = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const user = await userService.remove(id);
+
+    if (!user) {
+      return res.status(400).json(badRequest(400, 'Xóa dữ liệu thất bại!'));
+    }
+
+    res.status(200).json(successfully(user, 'Xóa dữ liệu thành công!'));
+  } catch (error: any) {
+    res.status(500).json(serverError(error?.message));
+  }
+};

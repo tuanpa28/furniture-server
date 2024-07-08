@@ -7,6 +7,6 @@ const routerAuth: Router = Router();
 routerAuth.post('/login', authController.login);
 
 // Register
-routerAuth.post('/register', () => {});
+routerAuth.post('/register', authController.register);
 
 export default routerAuth;

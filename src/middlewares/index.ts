@@ -1,1 +1,2 @@
-export * from './auth.middlewares';
+export * from './auth.middleware';
+export * from './upload.middleware';

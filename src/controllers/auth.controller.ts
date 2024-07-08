@@ -2,6 +2,7 @@ import bcrypt from 'bcryptjs';
 import { Request, Response } from 'express';
 import { badRequest, serverError, successfully } from '~/constants/httpStatus';
 import { userService } from '~/services';
+import { isEmail } from '~/utils/checkEmail';
 import { generateToken } from '~/utils/jwt';
 import { authValidation } from '~/validations';
 
@@ -14,8 +15,7 @@ export const login = async (req: Request, res: Response) => {
 
     const { emailOrUsername, password } = req.body;
 
-    // const query = isEmail(emailOrUsername) ? 'email' : 'username';
-    const query = 'username';
+    const query = isEmail(emailOrUsername) ? 'email' : 'username';
 
     // check if email or username exists
     const user = await userService.findOneOptions({
@@ -39,10 +39,49 @@ export const login = async (req: Request, res: Response) => {
         email: user.email,
         role: user.role,
       },
-      '1d',
+      '1h',
     );
 
     res.status(200).json(successfully({ user, accessToken }, 'Đăng nhập thành công!'));
+  } catch (error: any) {
+    res.status(500).json(serverError(error?.message));
+  }
+};
+
+export const register = async (req: Request, res: Response) => {
+  try {
+    const { error } = authValidation.registerSchema.validate(req.body);
+    if (error) {
+      return res.status(400).json(badRequest(400, error.details[0].message));
+    }
+    const { username, email, password } = req.body;
+
+    const existingUser = await userService.findOneOptions({
+      field: 'username',
+      payload: username,
+    });
+
+    if (existingUser) {
+      return res.status(400).json(badRequest(400, 'Tên người dùng đã tồn tại!'));
+    }
+
+    const existingEmail = await userService.findOneOptions({
+      field: 'email',
+      payload: email,
+    });
+    if (existingEmail) {
+      return res.status(400).json(badRequest(400, 'Địa chỉ email đã tồn tại!'));
+    }
+
+    // hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = await userService.create({
+      username,
+      email,
+      password: hashedPassword,
+    });
+    res.status(200).json(successfully(newUser, 'Đăng ký thành công !!!'));
   } catch (error: any) {
     res.status(500).json(serverError(error?.message));
   }

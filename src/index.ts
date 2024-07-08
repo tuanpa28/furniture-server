@@ -4,6 +4,7 @@ import express, { Application } from 'express';
 
 import { connectDB } from '~/configs/database';
 import routes from './routes';
+import path from 'path';
 
 const app: Application = express();
 const port = process.env.API_PORT || 8080;
@@ -19,6 +20,7 @@ try {
 
 app.use(cors({ origin: '*' }));
 app.use(express.json());
+app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 
 // routes
 routes(app);
